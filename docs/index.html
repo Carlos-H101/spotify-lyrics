@@ -49,6 +49,8 @@
     .panel-os { display:none; } .panel-os.active { display:block; }
 
     footer { text-align:center; color:#6b6b73; font-size:13px; padding:34px 0 60px; border-top:1px solid var(--line); }
+    .safe { background:#0d1a12; border:1px solid rgba(29,185,84,.35); border-radius:12px; padding:13px 18px; color:#bfe9cf; font-size:13.5px; }
+    .why { padding-left:20px; } .why li { margin:9px 0; }
   </style>
 </head>
 <body>
@@ -140,6 +142,19 @@
           <li>For encrypted token storage, a keyring (gnome-keyring or KWallet) should be installed.</li>
         </ol>
       </div>
+    </section>
+
+    <section>
+      <h2>Is it safe? Yes, nothing to worry about.</h2>
+      <p class="safe">Windows shows that "unknown publisher" warning only because I haven't bought an EV code-signing certificate, which costs $300 to $600 a year for what is a free hobby app. It is not a sign that anything is wrong with the download.</p>
+      <ul class="why">
+        <li><strong>It's fully open source.</strong> Every line of code is public on <a href="https://github.com/Carlos-H101/spotify-lyrics">GitHub</a>, so you (or anyone) can read exactly what it does, and you're welcome to scan the file with any antivirus before running it.</li>
+        <li><strong>It runs entirely on your own computer.</strong> There is no account with me and no server of mine in the middle.</li>
+        <li><strong>No data is collected, by me or anyone.</strong> No analytics, no tracking, no ads, no telemetry. Nothing about you ever reaches me.</li>
+        <li><strong>The only things it connects to</strong> are Spotify, to read what you're playing through your own login, and a free lyrics database, to look up the words for the current song. That is the entire story.</li>
+        <li><strong>Your Spotify login is stored encrypted</strong> on your machine using your operating system's built-in secure storage.</li>
+      </ul>
+      <p>In short: it links to your Spotify and shows the lyrics, and that is all it does. If you ever have a doubt, read the code or run the file through a scanner.</p>
     </section>
 
     <footer>
