@@ -1,0 +1,54 @@
+{
+  "name": "spotify-lyrics",
+  "productName": "Spotify Lyrics",
+  "version": "1.0.0",
+  "description": "A synced-lyrics overlay for Spotify. Shows the current song and scrolls its lyrics in time, in a small always-on-top mini-player.",
+  "author": "Carlos Hernandez (Carlos-H101)",
+  "license": "MIT",
+  "main": "app/main.js",
+  "homepage": "https://carlos-h101.github.io/spotify-lyrics/",
+  "repository": { "type": "git", "url": "https://github.com/Carlos-H101/spotify-lyrics.git" },
+  "scripts": {
+    "start": "electron app",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "devDependencies": {
+    "electron": "42.3.3",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "com.carlosh101.spotifylyrics",
+    "productName": "Spotify Lyrics",
+    "copyright": "Copyright © 2026 Carlos Hernandez",
+    "directories": { "output": "dist" },
+    "files": ["app/**/*"],
+    "win": {
+      "target": ["nsis"],
+      "icon": "app/assets/logo.ico",
+      "artifactName": "Spotify-Lyrics-Setup.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Spotify Lyrics"
+    },
+    "mac": {
+      "target": [{ "target": "dmg", "arch": ["arm64", "x64"] }],
+      "icon": "app/assets/logo.png",
+      "category": "public.app-category.music",
+      "artifactName": "Spotify-Lyrics-${arch}.${ext}"
+    },
+    "linux": {
+      "target": ["AppImage", "deb"],
+      "icon": "app/assets/logo.png",
+      "category": "AudioVideo",
+      "maintainer": "Carlos-H101",
+      "artifactName": "Spotify-Lyrics-${arch}.${ext}"
+    },
+    "publish": [{ "provider": "github", "owner": "Carlos-H101", "repo": "spotify-lyrics" }]
+  }
+}

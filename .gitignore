@@ -1,0 +1,15 @@
+# build tooling (installed by npm during the build; never committed)
+node_modules/
+dist/
+
+# manually downloaded Electron runtime (the no-npm "portable" path; ~150 MB, not committed)
+electron/
+
+# machine-specific launcher shortcut (contains absolute paths)
+*.lnk
+
+# misc
+*.log
+npm-debug.log*
+.DS_Store
+Thumbs.db

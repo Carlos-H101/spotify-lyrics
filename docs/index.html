@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Spotify Lyrics — synced lyrics overlay</title>
+  <meta name="description" content="A free synced-lyrics overlay for Spotify. Shows the current song and scrolls its lyrics in time, in a small always-on-top mini-player. Windows, macOS, Linux." />
+  <link rel="icon" href="logo.png" />
+  <style>
+    :root { --green:#1db954; --green2:#1ed760; --bg:#0a0a0c; --panel:#15151a; --line:#262630; --text:#e8e8ea; --muted:#9aa0a6; }
+    * { box-sizing:border-box; }
+    html,body { margin:0; background:var(--bg); color:var(--text);
+      font-family:'Segoe UI',system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif; line-height:1.55; }
+    a { color:var(--green2); text-decoration:none; }
+    a:hover { text-decoration:underline; }
+    .wrap { max-width:900px; margin:0 auto; padding:0 22px; }
+    header { text-align:center; padding:64px 0 28px; }
+    header img { width:108px; height:108px; filter:drop-shadow(0 6px 24px rgba(30,215,96,.25)); }
+    h1 { font-size:38px; margin:14px 0 6px; letter-spacing:-.02em; }
+    .tag { color:var(--muted); font-size:17px; margin:0 auto; max-width:560px; }
+    .disclaim { color:#6b6b73; font-size:12px; margin-top:10px; }
+
+    .cta { display:flex; flex-direction:column; align-items:center; gap:10px; margin:30px 0 8px; }
+    .btn { display:inline-flex; align-items:center; gap:10px; background:var(--green); color:#04130a;
+      font-weight:800; font-size:16px; padding:14px 26px; border-radius:999px; border:none; cursor:pointer; }
+    .btn:hover { background:var(--green2); text-decoration:none; }
+    .btn small { font-weight:600; opacity:.8; }
+    .cta .sub { color:var(--muted); font-size:13px; }
+
+    section { padding:30px 0; border-top:1px solid var(--line); }
+    h2 { font-size:22px; margin:0 0 14px; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:12px; }
+    .card { background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:16px 18px; }
+    .card h3 { margin:0 0 4px; font-size:15px; }
+    .card p { margin:0 0 12px; color:var(--muted); font-size:13px; }
+    .card a.dl { display:inline-block; background:#23232b; color:var(--text); font-weight:700; font-size:13px;
+      padding:8px 14px; border-radius:8px; }
+    .card a.dl:hover { background:#30303a; text-decoration:none; }
+
+    ol.steps { padding-left:20px; }
+    ol.steps li { margin:8px 0; }
+    code { background:#000; color:var(--green2); padding:2px 7px; border-radius:6px; font-size:13px; }
+    .note { background:#15130c; border:1px solid #3a3417; border-radius:12px; padding:12px 16px; color:#e9dca8; font-size:13.5px; }
+
+    .tabs { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px; }
+    .tab { background:#1c1c22; border:1px solid var(--line); color:var(--text); padding:8px 14px;
+      border-radius:999px; cursor:pointer; font-size:13px; font-weight:700; }
+    .tab.active { background:var(--green); color:#04130a; border-color:var(--green); }
+    .panel-os { display:none; } .panel-os.active { display:block; }
+
+    footer { text-align:center; color:#6b6b73; font-size:13px; padding:34px 0 60px; border-top:1px solid var(--line); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <img src="logo.png" alt="Spotify Lyrics logo" />
+      <h1>Spotify Lyrics</h1>
+      <p class="tag">A free synced-lyrics overlay for Spotify. It shows your current song and scrolls the lyrics in time, in a small always-on-top mini-player that stays out of your way.</p>
+      <p class="disclaim">Not affiliated with Spotify. Lyrics by LRCLIB. Requires a Spotify Premium account.</p>
+
+      <div class="cta">
+        <a class="btn" id="primary" href="https://github.com/Carlos-H101/spotify-lyrics/releases/latest">
+          <span id="primary-label">Download</span>
+        </a>
+        <span class="sub">Free and open source. <a href="https://github.com/Carlos-H101/spotify-lyrics/releases/latest">All versions and files</a></span>
+      </div>
+    </header>
+
+    <section>
+      <h2>All downloads</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Windows</h3>
+          <p>Windows 10 or 11. Installer (.exe).</p>
+          <a class="dl" href="https://github.com/Carlos-H101/spotify-lyrics/releases/latest/download/Spotify-Lyrics-Setup.exe">Download installer</a>
+        </div>
+        <div class="card">
+          <h3>macOS (Apple Silicon)</h3>
+          <p>M1/M2/M3 Macs. Disk image (.dmg).</p>
+          <a class="dl" href="https://github.com/Carlos-H101/spotify-lyrics/releases/latest/download/Spotify-Lyrics-arm64.dmg">Download .dmg</a>
+        </div>
+        <div class="card">
+          <h3>macOS (Intel)</h3>
+          <p>Older Intel Macs. Disk image (.dmg).</p>
+          <a class="dl" href="https://github.com/Carlos-H101/spotify-lyrics/releases/latest/download/Spotify-Lyrics-x64.dmg">Download .dmg</a>
+        </div>
+        <div class="card">
+          <h3>Linux (AppImage)</h3>
+          <p>Most distros. Portable AppImage.</p>
+          <a class="dl" href="https://github.com/Carlos-H101/spotify-lyrics/releases/latest/download/Spotify-Lyrics-x64.AppImage">Download AppImage</a>
+        </div>
+        <div class="card">
+          <h3>Linux (Debian/Ubuntu)</h3>
+          <p>.deb package.</p>
+          <a class="dl" href="https://github.com/Carlos-H101/spotify-lyrics/releases/latest/download/Spotify-Lyrics-x64.deb">Download .deb</a>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Connect your Spotify (one time, ~5 min)</h2>
+      <p style="color:var(--muted)">Spotify caps hobby apps at a few users per key, so each person uses their own free key. It takes a few minutes once.</p>
+      <ol class="steps">
+        <li>Open the <a href="https://developer.spotify.com/dashboard" target="_blank" rel="noopener">Spotify Developer Dashboard</a> and create an app (any name).</li>
+        <li>Add this exact Redirect URI: <code>http://127.0.0.1:8888/callback</code></li>
+        <li>Copy the app's <strong>Client ID</strong> (you do not need the secret).</li>
+        <li>Launch Spotify Lyrics, open <strong>Settings → Spotify account</strong>, paste the Client ID, and click <strong>Connect</strong>.</li>
+      </ol>
+      <p class="note">Reading playback requires a Spotify <strong>Premium</strong> account (Spotify's rule since Feb 2026). Free accounts can't authorize the API.</p>
+    </section>
+
+    <section>
+      <h2>Opening it the first time</h2>
+      <p style="color:var(--muted)">The app is not code-signed (signing certificates are expensive), so your OS will warn you the first time. This is normal for indie apps. Here's how to get past it.</p>
+      <div class="tabs">
+        <button class="tab" data-os="win">Windows</button>
+        <button class="tab" data-os="mac">macOS</button>
+        <button class="tab" data-os="linux">Linux</button>
+      </div>
+      <div class="panel-os" data-os="win">
+        <ol class="steps">
+          <li>Run the installer. If you see <strong>"Windows protected your PC"</strong>, click <strong>More info</strong>.</li>
+          <li>Click <strong>Run anyway</strong>, then finish the installer.</li>
+          <li>Launch <strong>Spotify Lyrics</strong> from the Start Menu or Desktop shortcut.</li>
+        </ol>
+      </div>
+      <div class="panel-os" data-os="mac">
+        <ol class="steps">
+          <li>Open the <code>.dmg</code> and drag <strong>Spotify Lyrics</strong> into Applications.</li>
+          <li>In Applications, <strong>right-click</strong> the app and choose <strong>Open</strong>, then <strong>Open</strong> again.</li>
+          <li>If macOS still blocks it: <strong>System Settings → Privacy &amp; Security</strong>, scroll down, and click <strong>Open Anyway</strong>.</li>
+          <li>Last resort in Terminal: <code>xattr -dr com.apple.quarantine "/Applications/Spotify Lyrics.app"</code></li>
+        </ol>
+      </div>
+      <div class="panel-os" data-os="linux">
+        <ol class="steps">
+          <li><strong>AppImage:</strong> make it executable (<code>chmod +x Spotify-Lyrics-x64.AppImage</code>) and double-click it, or run it from a terminal.</li>
+          <li><strong>.deb:</strong> install with <code>sudo dpkg -i Spotify-Lyrics-x64.deb</code> (or open it with your software installer).</li>
+          <li>For encrypted token storage, a keyring (gnome-keyring or KWallet) should be installed.</li>
+        </ol>
+      </div>
+    </section>
+
+    <footer>
+      <p>Open source (MIT) · <a href="https://github.com/Carlos-H101/spotify-lyrics">View on GitHub</a></p>
+      <p>Not affiliated with Spotify AB. "Spotify" is a trademark of Spotify AB.</p>
+    </footer>
+  </div>
+
+  <script>
+    var BASE = 'https://github.com/Carlos-H101/spotify-lyrics/releases/latest/download/';
+    var ua = navigator.userAgent;
+    var os = 'win';
+    if (/Mac/i.test(ua)) os = 'mac';
+    else if (/Linux/i.test(ua) && !/Android/i.test(ua)) os = 'linux';
+
+    var primary = document.getElementById('primary');
+    var label = document.getElementById('primary-label');
+    if (os === 'win') { primary.href = BASE + 'Spotify-Lyrics-Setup.exe'; label.innerHTML = 'Download for Windows'; }
+    else if (os === 'mac') { primary.href = BASE + 'Spotify-Lyrics-arm64.dmg'; label.innerHTML = 'Download for macOS <small>(Apple Silicon)</small>'; }
+    else if (os === 'linux') { primary.href = BASE + 'Spotify-Lyrics-x64.AppImage'; label.innerHTML = 'Download for Linux <small>(AppImage)</small>'; }
+
+    // OS tabs for the "how to open" section
+    var tabs = document.querySelectorAll('.tab');
+    var panels = document.querySelectorAll('.panel-os');
+    function showOS(name) {
+      tabs.forEach(function (t) { t.classList.toggle('active', t.dataset.os === name); });
+      panels.forEach(function (p) { p.classList.toggle('active', p.dataset.os === name); });
+    }
+    tabs.forEach(function (t) { t.addEventListener('click', function () { showOS(t.dataset.os); }); });
+    showOS(os);
+  </script>
+</body>
+</html>

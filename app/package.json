@@ -1,0 +1,9 @@
+{
+  "name": "spotify-lyrics-overlay",
+  "version": "1.0.0",
+  "description": "Always-on-top synced-lyrics mini-player for Spotify. Built with zero third-party packages.",
+  "main": "main.js",
+  "author": "Carlos",
+  "license": "MIT",
+  "private": true
+}

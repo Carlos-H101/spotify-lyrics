@@ -1,0 +1,297 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'none'; img-src https://i.scdn.co https://*.scdn.co data:; style-src 'self' 'unsafe-inline'; script-src 'self'; font-src 'self'; connect-src 'none';" />
+  <link rel="stylesheet" href="overlay.css" />
+  <title>Lyrics</title>
+</head>
+<body>
+  <div id="root">
+    <div id="bg"></div>
+    <div id="tint"></div>
+
+    <header id="header">
+      <img id="art" class="art-thumb" alt="" />
+      <div class="meta">
+        <div id="title"></div>
+        <div id="artist"></div>
+      </div>
+      <div class="controls">
+        <button id="btn-research" title="Re-search lyrics for this song">
+          <svg viewBox="0 0 24 24" class="ico"><path d="M12 5V2L8 6l4 4V7a5 5 0 11-5 5H5a7 7 0 107-7z"/></svg>
+        </button>
+        <button id="btn-lock" title="Lock (click-through)">
+          <svg viewBox="0 0 24 24" class="ico"><path d="M17 8V7a5 5 0 00-9.9-1l1.9.5A3 3 0 0115 7v1H6a2 2 0 00-2 2v9a2 2 0 002 2h12a2 2 0 002-2v-9a2 2 0 00-2-2h-1z"/></svg>
+        </button>
+        <button id="btn-settings" title="Open settings">
+          <svg viewBox="0 0 24 24" class="ico"><path d="M19.4 13a7.8 7.8 0 000-2l2-1.6-2-3.4-2.4 1a7.6 7.6 0 00-1.7-1L15 3H9.9l-.4 2.9c-.6.3-1.2.6-1.7 1l-2.4-1-2 3.4L3.5 11a7.8 7.8 0 000 2l-2 1.6 2 3.4 2.4-1c.5.4 1.1.7 1.7 1l.4 2.9H15l.4-2.9c.6-.3 1.2-.6 1.7-1l2.4 1 2-3.4-2.1-1.6zM12 15.5a3.5 3.5 0 110-7 3.5 3.5 0 010 7z"/></svg>
+        </button>
+        <span class="ctrl-sep"></span>
+        <button id="btn-min" title="Minimize">
+          <svg viewBox="0 0 24 24" class="ico"><path d="M6 12h12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+        <button id="btn-close" class="danger" title="Close (quit the app)">
+          <svg viewBox="0 0 24 24" class="ico"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <main id="lyrics-view">
+      <div id="lyrics-wrap"></div>
+      <div id="message" class="hidden"></div>
+    </main>
+
+    <div id="transport" class="hidden">
+      <div id="transport-controls" class="tcontrols">
+        <button id="btn-prev" title="Previous track">
+          <svg viewBox="0 0 24 24" class="ico"><path d="M7 6v12H5V6h2zm12 0v12l-9-6 9-6z"/></svg>
+        </button>
+        <button id="btn-play" title="Play / Pause">
+          <svg viewBox="0 0 24 24" class="ico"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+        <button id="btn-next" title="Next track">
+          <svg viewBox="0 0 24 24" class="ico"><path d="M17 6v12h2V6h-2zM5 6v12l9-6-9-6z"/></svg>
+        </button>
+      </div>
+      <div class="tseek">
+        <span id="t-cur" class="ttime">0:00</span>
+        <div id="seek" class="seek">
+          <div id="seek-fill" class="seek-fill"></div>
+          <div id="seek-handle" class="seek-handle"></div>
+        </div>
+        <span id="t-tot" class="ttime">0:00</span>
+      </div>
+      <div id="transport-hint" class="thint hidden"></div>
+    </div>
+
+    <div id="lock-indicator"></div>
+
+    <!-- ===================== INLINE SETTINGS PANEL ===================== -->
+    <div id="settings-panel">
+      <div class="sp-top">
+        <button id="settings-back" title="Back to the lyrics">
+          <svg viewBox="0 0 24 24" class="ico"><path d="M15 18l-6-6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Done</span>
+        </button>
+        <div class="sp-title">Settings</div>
+        <input id="set-search" type="text" placeholder="Search settings…" spellcheck="false" />
+      </div>
+
+      <div class="sp-body">
+        <div id="set-noresults" class="sp-empty hidden">No settings match your search.</div>
+
+        <!-- ACCOUNT -->
+        <section class="acc" data-section="account">
+          <button class="acc-head" type="button"><span>Spotify account</span>
+            <svg class="chev" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg></button>
+          <div class="acc-body">
+            <div class="field"><div class="row"><label>Status</label><span id="auth-status" class="status">…</span></div></div>
+            <div class="field">
+              <div class="row"><label for="spotifyClientId">Client ID</label>
+                <input type="text" id="spotifyClientId" placeholder="paste your Spotify app Client ID" spellcheck="false" /></div>
+              <div class="desc">From the app you created in the Spotify Developer Dashboard. Reading playback needs a Premium account.</div>
+            </div>
+            <div class="field">
+              <div class="row"><label>Redirect URI</label><code id="redirect-uri">http://127.0.0.1:8888/callback</code></div>
+              <div class="desc">Add this exact value to your Spotify app's Redirect URIs.</div>
+            </div>
+            <div class="btns">
+              <button id="btn-dashboard" class="ghost">Open Dashboard</button>
+              <button id="btn-connect" class="accent">Connect</button>
+              <button id="btn-disconnect" class="ghost">Disconnect</button>
+            </div>
+            <div id="auth-msg" class="hint err"></div>
+          </div>
+        </section>
+
+        <!-- PRESETS -->
+        <section class="acc open" data-section="presets">
+          <button class="acc-head" type="button"><span>Presets</span>
+            <svg class="chev" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg></button>
+          <div class="acc-body">
+            <div class="desc">Save the current appearance, layout, behavior, and hotkeys as a preset (up to 5) and switch any time.</div>
+            <div class="preset-save">
+              <input id="preset-name" type="text" placeholder="Preset name" maxlength="24" spellcheck="false" />
+              <button id="preset-save-btn" class="accent">Save current</button>
+            </div>
+            <div id="preset-count" class="hint"></div>
+            <div id="preset-list"></div>
+          </div>
+        </section>
+
+        <!-- APPEARANCE -->
+        <section class="acc open" data-section="appearance">
+          <button class="acc-head" type="button"><span>Appearance</span>
+            <svg class="chev" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg></button>
+          <div class="acc-body">
+            <div class="acc-tools"><button class="restore" data-section="appearance">Restore defaults</button></div>
+            <div class="field">
+              <div class="row"><label>Theme presets</label>
+                <div class="presets">
+                  <button class="preset" data-theme="dark">Dark</button>
+                  <button class="preset" data-theme="light">Light</button>
+                  <button class="preset" data-theme="amoled">AMOLED</button>
+                </div></div>
+              <div class="desc">Quick starting points that set the colors below.</div>
+            </div>
+            <div class="field">
+              <div class="row"><label for="backdrop">Background</label>
+                <select id="backdrop">
+                  <option value="art">Album art (blurred)</option>
+                  <option value="solid">Solid color</option>
+                  <option value="clear">Clear (see-through)</option>
+                </select></div>
+              <div class="desc">What sits behind the lyrics. "Clear" lets the screen show through.</div>
+            </div>
+            <div class="field">
+              <div class="row"><label for="activeColor">Active line color</label><input type="color" id="activeColor" /></div>
+              <div class="desc">The line currently being sung.</div>
+            </div>
+            <div class="field">
+              <div class="row"><label for="textColor">Other lines color</label><input type="color" id="textColor" /></div>
+              <div class="desc">The dimmed lines above and below.</div>
+            </div>
+            <div class="field">
+              <div class="row"><label for="accentColor">Accent color</label><input type="color" id="accentColor" /></div>
+              <div class="desc">Progress bar, buttons, and the active-line glow.</div>
+            </div>
+            <div class="field">
+              <div class="row"><label for="bgColor">Background tint</label><input type="color" id="bgColor" /></div>
+              <div class="desc">Color of the panel in Album-art and Solid modes.</div>
+            </div>
+            <div class="field">
+              <div class="row"><label for="bgOpacity">Background opacity <output id="bgOpacity-out"></output></label>
+                <input type="range" id="bgOpacity" data-float min="0" max="1" step="0.05" /></div>
+              <div class="desc">Tint strength for the Album-art and Solid backgrounds.</div>
+            </div>
+            <div class="field">
+              <div class="row"><label for="shadeOpacity">Clear-mode shade <output id="shadeOpacity-out"></output></label>
+                <input type="range" id="shadeOpacity" data-float min="0" max="0.6" step="0.02" /></div>
+              <div class="desc">Light grey backing used only in Clear mode. 0 = fully see-through.</div>
+            </div>
+            <div class="field">
+              <div class="row"><label for="artBlur">Album-art blur <output id="artBlur-out"></output></label>
+                <input type="range" id="artBlur" min="0" max="60" step="1" /></div>
+              <div class="desc">Blur of the album-art backdrop. 0 keeps it sharp.</div>
+            </div>
+            <div class="field">
+              <div class="row"><label for="fontFamily">Font</label><select id="fontFamily"></select></div>
+              <div class="desc">Typeface used for the lyrics.</div>
+            </div>
+            <div class="field">
+              <div class="row"><label for="fontSize">Font size <output id="fontSize-out"></output></label>
+                <input type="range" id="fontSize" min="12" max="48" step="1" /></div>
+              <div class="desc">Size of the active lyric line.</div>
+            </div>
+            <div class="field">
+              <div class="row"><label for="fontWeight">Font weight</label>
+                <select id="fontWeight">
+                  <option value="300">Light</option><option value="400">Regular</option>
+                  <option value="600">Semibold</option><option value="700">Bold</option>
+                  <option value="800">Extrabold</option><option value="900">Black</option>
+                </select></div>
+              <div class="desc">Thickness of the lyric text.</div>
+            </div>
+            <div class="field">
+              <div class="row"><label for="lineSpacing">Line spacing <output id="lineSpacing-out"></output></label>
+                <input type="range" id="lineSpacing" data-float min="1" max="2.4" step="0.05" /></div>
+              <div class="desc">Vertical gap between lines.</div>
+            </div>
+            <div class="field">
+              <div class="row"><label for="textAlign">Alignment</label>
+                <select id="textAlign"><option value="center">Center</option><option value="left">Left</option></select></div>
+              <div class="desc">Center the lyrics or push them to the left.</div>
+            </div>
+            <div class="field">
+              <div class="row"><label for="activeScale">Active line zoom <output id="activeScale-out"></output></label>
+                <input type="range" id="activeScale" data-float min="1" max="1.4" step="0.02" /></div>
+              <div class="desc">How much bigger the active line grows. 1.0 = no zoom.</div>
+            </div>
+            <div class="field">
+              <div class="row"><label for="cornerRadius">Corner radius <output id="cornerRadius-out"></output></label>
+                <input type="range" id="cornerRadius" min="0" max="40" step="1" /></div>
+              <div class="desc">Roundness of the player's corners.</div>
+            </div>
+            <div class="field">
+              <div class="row check"><label for="glow">Glow on active line</label><input type="checkbox" id="glow" /></div>
+              <div class="desc">Soft halo around the current line, in the accent color.</div>
+            </div>
+            <div class="field">
+              <div class="row check"><label for="textShadow">Text shadow (readability)</label><input type="checkbox" id="textShadow" /></div>
+              <div class="desc">Dark shadow behind the text so it stays readable, especially in Clear mode.</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- LAYOUT -->
+        <section class="acc" data-section="layout">
+          <button class="acc-head" type="button"><span>Layout</span>
+            <svg class="chev" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg></button>
+          <div class="acc-body">
+            <div class="acc-tools"><button class="restore" data-section="layout">Restore defaults</button></div>
+            <div class="field"><div class="row check"><label for="showAlbumArt">Show album art</label><input type="checkbox" id="showAlbumArt" /></div>
+              <div class="desc">The small album cover in the header.</div></div>
+            <div class="field"><div class="row check"><label for="showHeader">Show title &amp; artist</label><input type="checkbox" id="showHeader" /></div>
+              <div class="desc">The song name and artist row at the top.</div></div>
+            <div class="field"><div class="row check"><label for="showControls">Show playback controls</label><input type="checkbox" id="showControls" /></div>
+              <div class="desc">The play/pause, skip, and seek bar at the bottom.</div></div>
+            <div class="field"><div class="row check"><label for="compact">Compact (lyrics only)</label><input type="checkbox" id="compact" /></div>
+              <div class="desc">Hide the header and controls, leaving just the lyrics.</div></div>
+            <div class="field"><div class="row check"><label for="alwaysOnTop">Always on top</label><input type="checkbox" id="alwaysOnTop" /></div>
+              <div class="desc">Keep the player floating above other windows.</div></div>
+            <div class="field"><div class="row check"><label for="showInTaskbar">Show in taskbar</label><input type="checkbox" id="showInTaskbar" /></div>
+              <div class="desc">Keep a taskbar button so you can restore the player after minimizing.</div></div>
+          </div>
+        </section>
+
+        <!-- BEHAVIOR -->
+        <section class="acc" data-section="behavior">
+          <button class="acc-head" type="button"><span>Behavior</span>
+            <svg class="chev" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg></button>
+          <div class="acc-body">
+            <div class="acc-tools"><button class="restore" data-section="behavior">Restore defaults</button></div>
+            <div class="field"><div class="row check"><label for="startLocked">Start locked (click-through)</label><input type="checkbox" id="startLocked" /></div>
+              <div class="desc">Open in click-through mode so clicks pass through to apps behind it.</div></div>
+            <div class="field"><div class="row check"><label for="autoHidePaused">Fade out when paused</label><input type="checkbox" id="autoHidePaused" /></div>
+              <div class="desc">Dim the player while playback is paused.</div></div>
+            <div class="field"><div class="row check"><label for="autoHideNoLyrics">Fade out when no lyrics</label><input type="checkbox" id="autoHideNoLyrics" /></div>
+              <div class="desc">Dim the player when a song has no lyrics.</div></div>
+            <div class="field"><div class="row check"><label for="startWithWindows">Start with Windows</label><input type="checkbox" id="startWithWindows" /></div>
+              <div class="desc">Launch the overlay automatically when you log in.</div></div>
+            <div class="field"><div class="row"><label for="lyricOffsetMs">Lyric offset (ms) <output id="lyricOffsetMs-out"></output></label>
+              <input type="range" id="lyricOffsetMs" min="-3000" max="3000" step="50" /></div>
+              <div class="desc">Shift lyric timing if it feels off. Negative = earlier, positive = later.</div></div>
+          </div>
+        </section>
+
+        <!-- HOTKEYS -->
+        <section class="acc" data-section="hotkeys">
+          <button class="acc-head" type="button"><span>Hotkeys</span>
+            <svg class="chev" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg></button>
+          <div class="acc-body">
+            <div class="acc-tools"><button class="restore" data-section="hotkeys">Restore defaults</button></div>
+            <div class="hint">Accelerator format, e.g. <code>Alt+Shift+L</code> or <code>CommandOrControl+F1</code>.</div>
+            <div class="field"><div class="row"><label for="hk-toggleLock">Lock / unlock</label><input type="text" id="hk-toggleLock" spellcheck="false" /></div>
+              <div class="desc">Toggle click-through on or off.</div></div>
+            <div class="field"><div class="row"><label for="hk-toggleShow">Show / hide overlay</label><input type="text" id="hk-toggleShow" spellcheck="false" /></div>
+              <div class="desc">Hide the player or bring it back.</div></div>
+            <div class="field"><div class="row"><label for="hk-offsetMinus">Nudge lyrics earlier</label><input type="text" id="hk-offsetMinus" spellcheck="false" /></div>
+              <div class="desc">Shift timing back by 250 ms each press.</div></div>
+            <div class="field"><div class="row"><label for="hk-offsetPlus">Nudge lyrics later</label><input type="text" id="hk-offsetPlus" spellcheck="false" /></div>
+              <div class="desc">Shift timing forward by 250 ms each press.</div></div>
+          </div>
+        </section>
+
+        <div class="sp-footer">
+          <button id="btn-reset" class="ghost">Reset everything to defaults</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="overlay.js"></script>
+  <script src="settings-panel.js"></script>
+</body>
+</html>
