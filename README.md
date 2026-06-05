@@ -16,7 +16,7 @@ Get it from the **[website](https://carlos-h101.github.io/spotify-lyrics/)** or 
 
 - **Windows:** `Spotify-Lyrics-Setup.exe`
 - **macOS:** `Spotify-Lyrics-arm64.dmg` (Apple Silicon) or `Spotify-Lyrics-x64.dmg` (Intel)
-- **Linux:** `Spotify-Lyrics-x64.AppImage` or `Spotify-Lyrics-x64.deb`
+- **Linux:** `Spotify-Lyrics-x86_64.AppImage` or `Spotify-Lyrics-amd64.deb`
 
 The app isn't code-signed yet, so your OS warns you the first time. On Windows click
 **More info → Run anyway**; on macOS right-click the app and choose **Open**, or use

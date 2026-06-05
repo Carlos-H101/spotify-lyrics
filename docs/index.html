@@ -88,12 +88,12 @@
         <div class="card">
           <h3>Linux (AppImage)</h3>
           <p>Most distros. Portable AppImage.</p>
-          <a class="dl" href="https://github.com/Carlos-H101/spotify-lyrics/releases/latest/download/Spotify-Lyrics-x64.AppImage">Download AppImage</a>
+          <a class="dl" href="https://github.com/Carlos-H101/spotify-lyrics/releases/latest/download/Spotify-Lyrics-x86_64.AppImage">Download AppImage</a>
         </div>
         <div class="card">
           <h3>Linux (Debian/Ubuntu)</h3>
           <p>.deb package.</p>
-          <a class="dl" href="https://github.com/Carlos-H101/spotify-lyrics/releases/latest/download/Spotify-Lyrics-x64.deb">Download .deb</a>
+          <a class="dl" href="https://github.com/Carlos-H101/spotify-lyrics/releases/latest/download/Spotify-Lyrics-amd64.deb">Download .deb</a>
         </div>
       </div>
     </section>
@@ -135,8 +135,8 @@
       </div>
       <div class="panel-os" data-os="linux">
         <ol class="steps">
-          <li><strong>AppImage:</strong> make it executable (<code>chmod +x Spotify-Lyrics-x64.AppImage</code>) and double-click it, or run it from a terminal.</li>
-          <li><strong>.deb:</strong> install with <code>sudo dpkg -i Spotify-Lyrics-x64.deb</code> (or open it with your software installer).</li>
+          <li><strong>AppImage:</strong> make it executable (<code>chmod +x Spotify-Lyrics-x86_64.AppImage</code>) and double-click it, or run it from a terminal.</li>
+          <li><strong>.deb:</strong> install with <code>sudo dpkg -i Spotify-Lyrics-amd64.deb</code> (or open it with your software installer).</li>
           <li>For encrypted token storage, a keyring (gnome-keyring or KWallet) should be installed.</li>
         </ol>
       </div>
@@ -159,7 +159,7 @@
     var label = document.getElementById('primary-label');
     if (os === 'win') { primary.href = BASE + 'Spotify-Lyrics-Setup.exe'; label.innerHTML = 'Download for Windows'; }
     else if (os === 'mac') { primary.href = BASE + 'Spotify-Lyrics-arm64.dmg'; label.innerHTML = 'Download for macOS <small>(Apple Silicon)</small>'; }
-    else if (os === 'linux') { primary.href = BASE + 'Spotify-Lyrics-x64.AppImage'; label.innerHTML = 'Download for Linux <small>(AppImage)</small>'; }
+    else if (os === 'linux') { primary.href = BASE + 'Spotify-Lyrics-x86_64.AppImage'; label.innerHTML = 'Download for Linux <small>(AppImage)</small>'; }
 
     // OS tabs for the "how to open" section
     var tabs = document.querySelectorAll('.tab');
