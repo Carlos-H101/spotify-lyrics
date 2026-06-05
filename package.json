@@ -6,7 +6,7 @@
   "author": "Carlos Hernandez (Carlos-H101)",
   "license": "MIT",
   "main": "app/main.js",
-  "homepage": "https://carlos-h101.github.io/spotify-lyrics/",
+  "homepage": "https://splyrics.com",
   "repository": { "type": "git", "url": "https://github.com/Carlos-H101/spotify-lyrics.git" },
   "scripts": {
     "start": "electron app",
