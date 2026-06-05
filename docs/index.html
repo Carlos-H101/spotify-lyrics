@@ -48,6 +48,8 @@
     ol.steps li { margin:8px 0; }
     code { background:#000; color:var(--green2); padding:2px 7px; border-radius:6px; font-size:13px; }
     .note { background:#15130c; border:1px solid #3a3417; border-radius:12px; padding:12px 16px; color:#e9dca8; font-size:13.5px; }
+    .redir-why { display:block; margin-top:6px; color:var(--muted); font-size:12px; line-height:1.5; }
+    .redir-why code { font-size:11px; padding:1px 5px; }
 
     .tabs { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px; }
     .tab { background:#1c1c22; border:1px solid var(--line); color:var(--text); padding:8px 14px;
@@ -114,8 +116,9 @@
       <h2 data-i18n="setup_h">Connect your Spotify (one time, ~5 min)</h2>
       <p style="color:var(--muted)" data-i18n="setup_intro">Spotify caps hobby apps at a few users per key, so each person uses their own free key. It takes a few minutes once.</p>
       <ol class="steps">
+        <li data-i18n="s0">Download and install Spotify Lyrics using the button above.</li>
         <li data-i18n="s1">Open the <a href="https://developer.spotify.com/dashboard" target="_blank" rel="noopener">Spotify Developer Dashboard</a> and create an app (any name).</li>
-        <li data-i18n="s2">Add this exact Redirect URI: <code>http://127.0.0.1:8888/callback</code></li>
+        <li data-i18n="s2">Add this exact Redirect URI: <code>http://127.0.0.1:8888/callback</code><br><span class="redir-why">No need to worry: <code>127.0.0.1</code> is your own computer, so this just lets Spotify hand the login back to the app locally. Nothing leaves your machine, and it has to match exactly or Connect won't work.</span></li>
         <li data-i18n="s3">Copy the app's <strong>Client ID</strong> (you do not need the secret).</li>
         <li data-i18n="s4">Launch Spotify Lyrics, open <strong>Settings → Spotify account</strong>, paste the Client ID, and click <strong>Connect</strong>.</li>
       </ol>
@@ -198,8 +201,9 @@
         c_lxdeb_a: `Download .deb`,
         setup_h: `Connect your Spotify (one time, ~5 min)`,
         setup_intro: `Spotify caps hobby apps at a few users per key, so each person uses their own free key. It takes a few minutes once.`,
+        s0: `Download and install Spotify Lyrics using the button above.`,
         s1: `Open the <a href="https://developer.spotify.com/dashboard" target="_blank" rel="noopener">Spotify Developer Dashboard</a> and create an app (any name).`,
-        s2: `Add this exact Redirect URI: <code>http://127.0.0.1:8888/callback</code>`,
+        s2: `Add this exact Redirect URI: <code>http://127.0.0.1:8888/callback</code><br><span class="redir-why">No need to worry: <code>127.0.0.1</code> is your own computer, so this just lets Spotify hand the login back to the app locally. Nothing leaves your machine, and it has to match exactly or Connect won't work.</span>`,
         s3: `Copy the app's <strong>Client ID</strong> (you do not need the secret).`,
         s4: `Launch Spotify Lyrics, open <strong>Settings → Spotify account</strong>, paste the Client ID, and click <strong>Connect</strong>.`,
         setup_note: `Reading playback requires a Spotify <strong>Premium</strong> account (Spotify's rule since Feb 2026). Free accounts can't authorize the API.`,
@@ -246,8 +250,9 @@
         c_lxdeb_a: `Descargar .deb`,
         setup_h: `Conecta tu Spotify (una vez, ~5 min)`,
         setup_intro: `Spotify limita las apps de aficionados a unos pocos usuarios por clave, así que cada persona usa su propia clave gratuita. Solo toma unos minutos, una sola vez.`,
+        s0: `Descarga e instala Spotify Lyrics con el botón de arriba.`,
         s1: `Abre el <a href="https://developer.spotify.com/dashboard" target="_blank" rel="noopener">Spotify Developer Dashboard</a> y crea una app (cualquier nombre).`,
-        s2: `Agrega esta Redirect URI exacta: <code>http://127.0.0.1:8888/callback</code>`,
+        s2: `Agrega esta Redirect URI exacta: <code>http://127.0.0.1:8888/callback</code><br><span class="redir-why">Tranquilo: <code>127.0.0.1</code> es tu propia computadora, así que esto solo permite que Spotify le regrese el inicio de sesión a la app de forma local. Nada sale de tu equipo, y debe coincidir exactamente o el botón Connect no funcionará.</span>`,
         s3: `Copia el <strong>Client ID</strong> de la app (no necesitas el secret).`,
         s4: `Abre Spotify Lyrics, ve a <strong>Settings → Spotify account</strong>, pega el Client ID y haz clic en <strong>Connect</strong>.`,
         setup_note: `Leer la reproducción requiere una cuenta de Spotify <strong>Premium</strong> (regla de Spotify desde feb. 2026). Las cuentas gratuitas no pueden autorizar la API.`,
