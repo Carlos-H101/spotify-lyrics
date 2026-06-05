@@ -8,16 +8,23 @@
   <link rel="icon" href="logo.png" />
   <style>
     :root { --green:#1db954; --green2:#1ed760; --bg:#0a0a0c; --panel:#15151a; --line:#262630; --text:#e8e8ea; --muted:#9aa0a6; }
-    * { box-sizing:border-box; }
+    * { box-sizing: border-box; }
     html,body { margin:0; background:var(--bg); color:var(--text);
       font-family:'Segoe UI',system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif; line-height:1.55; }
     a { color:var(--green2); text-decoration:none; }
     a:hover { text-decoration:underline; }
     .wrap { max-width:900px; margin:0 auto; padding:0 22px; }
-    header { text-align:center; padding:64px 0 28px; }
+
+    .langbar { display:flex; justify-content:flex-end; gap:6px; padding:14px 0 0; }
+    .lang-btn { background:#1c1c22; border:1px solid var(--line); color:var(--muted);
+      padding:5px 13px; border-radius:999px; cursor:pointer; font-size:12.5px; font-weight:700; }
+    .lang-btn:hover { color:var(--text); }
+    .lang-btn.active { background:var(--green); color:#04130a; border-color:var(--green); }
+
+    header { text-align:center; padding:30px 0 28px; }
     header img { width:108px; height:108px; filter:drop-shadow(0 6px 24px rgba(30,215,96,.25)); }
     h1 { font-size:38px; margin:14px 0 6px; letter-spacing:-.02em; }
-    .tag { color:var(--muted); font-size:17px; margin:0 auto; max-width:560px; }
+    .tag { color:var(--muted); font-size:17px; margin:0 auto; max-width:580px; }
     .disclaim { color:#6b6b73; font-size:12px; margin-top:10px; }
 
     .cta { display:flex; flex-direction:column; align-items:center; gap:10px; margin:30px 0 8px; }
@@ -55,66 +62,69 @@
 </head>
 <body>
   <div class="wrap">
+    <div class="langbar">
+      <button class="lang-btn" data-lang="en">English</button>
+      <button class="lang-btn" data-lang="es">Español</button>
+    </div>
+
     <header>
       <img src="logo.png" alt="Spotify Lyrics logo" />
       <h1>Spotify Lyrics</h1>
-      <p class="tag">A free synced-lyrics overlay for Spotify. It shows your current song and scrolls the lyrics in time, in a small always-on-top mini-player that stays out of your way.</p>
-      <p class="disclaim">Not affiliated with Spotify. Lyrics by LRCLIB. Requires a Spotify Premium account.</p>
+      <p class="tag" data-i18n="tagline">A free synced-lyrics overlay for Spotify. It shows your current song and scrolls the lyrics in time, in a small always-on-top mini-player that stays out of your way.</p>
+      <p class="disclaim" data-i18n="disclaim">Not affiliated with Spotify. Lyrics by LRCLIB. Requires a Spotify Premium account.</p>
 
       <div class="cta">
-        <a class="btn" id="primary" href="https://github.com/Carlos-H101/spotify-lyrics/releases/latest">
-          <span id="primary-label">Download</span>
-        </a>
-        <span class="sub">Free and open source. <a href="https://github.com/Carlos-H101/spotify-lyrics/releases/latest">All versions and files</a></span>
+        <a class="btn" id="primary" href="https://github.com/Carlos-H101/spotify-lyrics/releases/latest">Download</a>
+        <span class="sub" data-i18n="sub">Free and open source. <a href="https://github.com/Carlos-H101/spotify-lyrics/releases/latest">All versions and files</a></span>
       </div>
     </header>
 
     <section>
-      <h2>All downloads</h2>
+      <h2 data-i18n="dl_h">All downloads</h2>
       <div class="grid">
         <div class="card">
           <h3>Windows</h3>
-          <p>Windows 10 or 11. Installer (.exe).</p>
-          <a class="dl" href="https://github.com/Carlos-H101/spotify-lyrics/releases/latest/download/Spotify-Lyrics-Setup.exe">Download installer</a>
+          <p data-i18n="c_win_p">Windows 10 or 11. Installer (.exe).</p>
+          <a class="dl" href="https://github.com/Carlos-H101/spotify-lyrics/releases/latest/download/Spotify-Lyrics-Setup.exe" data-i18n="c_win_a">Download installer</a>
         </div>
         <div class="card">
           <h3>macOS (Apple Silicon)</h3>
-          <p>M1/M2/M3 Macs. Disk image (.dmg).</p>
-          <a class="dl" href="https://github.com/Carlos-H101/spotify-lyrics/releases/latest/download/Spotify-Lyrics-arm64.dmg">Download .dmg</a>
+          <p data-i18n="c_macas_p">M1/M2/M3 Macs. Disk image (.dmg).</p>
+          <a class="dl" href="https://github.com/Carlos-H101/spotify-lyrics/releases/latest/download/Spotify-Lyrics-arm64.dmg" data-i18n="c_macas_a">Download .dmg</a>
         </div>
         <div class="card">
           <h3>macOS (Intel)</h3>
-          <p>Older Intel Macs. Disk image (.dmg).</p>
-          <a class="dl" href="https://github.com/Carlos-H101/spotify-lyrics/releases/latest/download/Spotify-Lyrics-x64.dmg">Download .dmg</a>
+          <p data-i18n="c_macin_p">Older Intel Macs. Disk image (.dmg).</p>
+          <a class="dl" href="https://github.com/Carlos-H101/spotify-lyrics/releases/latest/download/Spotify-Lyrics-x64.dmg" data-i18n="c_macin_a">Download .dmg</a>
         </div>
         <div class="card">
           <h3>Linux (AppImage)</h3>
-          <p>Most distros. Portable AppImage.</p>
-          <a class="dl" href="https://github.com/Carlos-H101/spotify-lyrics/releases/latest/download/Spotify-Lyrics-x86_64.AppImage">Download AppImage</a>
+          <p data-i18n="c_lxappimg_p">Most distros. Portable AppImage.</p>
+          <a class="dl" href="https://github.com/Carlos-H101/spotify-lyrics/releases/latest/download/Spotify-Lyrics-x86_64.AppImage" data-i18n="c_lxappimg_a">Download AppImage</a>
         </div>
         <div class="card">
           <h3>Linux (Debian/Ubuntu)</h3>
-          <p>.deb package.</p>
-          <a class="dl" href="https://github.com/Carlos-H101/spotify-lyrics/releases/latest/download/Spotify-Lyrics-amd64.deb">Download .deb</a>
+          <p data-i18n="c_lxdeb_p">.deb package.</p>
+          <a class="dl" href="https://github.com/Carlos-H101/spotify-lyrics/releases/latest/download/Spotify-Lyrics-amd64.deb" data-i18n="c_lxdeb_a">Download .deb</a>
         </div>
       </div>
     </section>
 
     <section>
-      <h2>Connect your Spotify (one time, ~5 min)</h2>
-      <p style="color:var(--muted)">Spotify caps hobby apps at a few users per key, so each person uses their own free key. It takes a few minutes once.</p>
+      <h2 data-i18n="setup_h">Connect your Spotify (one time, ~5 min)</h2>
+      <p style="color:var(--muted)" data-i18n="setup_intro">Spotify caps hobby apps at a few users per key, so each person uses their own free key. It takes a few minutes once.</p>
       <ol class="steps">
-        <li>Open the <a href="https://developer.spotify.com/dashboard" target="_blank" rel="noopener">Spotify Developer Dashboard</a> and create an app (any name).</li>
-        <li>Add this exact Redirect URI: <code>http://127.0.0.1:8888/callback</code></li>
-        <li>Copy the app's <strong>Client ID</strong> (you do not need the secret).</li>
-        <li>Launch Spotify Lyrics, open <strong>Settings → Spotify account</strong>, paste the Client ID, and click <strong>Connect</strong>.</li>
+        <li data-i18n="s1">Open the <a href="https://developer.spotify.com/dashboard" target="_blank" rel="noopener">Spotify Developer Dashboard</a> and create an app (any name).</li>
+        <li data-i18n="s2">Add this exact Redirect URI: <code>http://127.0.0.1:8888/callback</code></li>
+        <li data-i18n="s3">Copy the app's <strong>Client ID</strong> (you do not need the secret).</li>
+        <li data-i18n="s4">Launch Spotify Lyrics, open <strong>Settings → Spotify account</strong>, paste the Client ID, and click <strong>Connect</strong>.</li>
       </ol>
-      <p class="note">Reading playback requires a Spotify <strong>Premium</strong> account (Spotify's rule since Feb 2026). Free accounts can't authorize the API.</p>
+      <p class="note" data-i18n="setup_note">Reading playback requires a Spotify <strong>Premium</strong> account (Spotify's rule since Feb 2026). Free accounts can't authorize the API.</p>
     </section>
 
     <section>
-      <h2>Opening it the first time</h2>
-      <p style="color:var(--muted)">The app is not code-signed (signing certificates are expensive), so your OS will warn you the first time. This is normal for indie apps. Here's how to get past it.</p>
+      <h2 data-i18n="open_h">Opening it the first time</h2>
+      <p style="color:var(--muted)" data-i18n="open_intro">The app is not code-signed (signing certificates are expensive), so your OS will warn you the first time. This is normal for indie apps. Here's how to get past it.</p>
       <div class="tabs">
         <button class="tab" data-os="win">Windows</button>
         <button class="tab" data-os="mac">macOS</button>
@@ -122,59 +132,176 @@
       </div>
       <div class="panel-os" data-os="win">
         <ol class="steps">
-          <li>Run the installer. If you see <strong>"Windows protected your PC"</strong>, click <strong>More info</strong>.</li>
-          <li>Click <strong>Run anyway</strong>, then finish the installer.</li>
-          <li>Launch <strong>Spotify Lyrics</strong> from the Start Menu or Desktop shortcut.</li>
+          <li data-i18n="win1">Run the installer. If you see <strong>"Windows protected your PC"</strong>, click <strong>More info</strong>.</li>
+          <li data-i18n="win2">Click <strong>Run anyway</strong>, then finish the installer.</li>
+          <li data-i18n="win3">Launch <strong>Spotify Lyrics</strong> from the Start Menu or Desktop shortcut.</li>
         </ol>
       </div>
       <div class="panel-os" data-os="mac">
         <ol class="steps">
-          <li>Open the <code>.dmg</code> and drag <strong>Spotify Lyrics</strong> into Applications.</li>
-          <li>In Applications, <strong>right-click</strong> the app and choose <strong>Open</strong>, then <strong>Open</strong> again.</li>
-          <li>If macOS still blocks it: <strong>System Settings → Privacy &amp; Security</strong>, scroll down, and click <strong>Open Anyway</strong>.</li>
-          <li>Last resort in Terminal: <code>xattr -dr com.apple.quarantine "/Applications/Spotify Lyrics.app"</code></li>
+          <li data-i18n="mac1">Open the <code>.dmg</code> and drag <strong>Spotify Lyrics</strong> into Applications.</li>
+          <li data-i18n="mac2">In Applications, <strong>right-click</strong> the app and choose <strong>Open</strong>, then <strong>Open</strong> again.</li>
+          <li data-i18n="mac3">If macOS still blocks it: <strong>System Settings → Privacy &amp; Security</strong>, scroll down, and click <strong>Open Anyway</strong>.</li>
+          <li data-i18n="mac4">Last resort in Terminal: <code>xattr -dr com.apple.quarantine "/Applications/Spotify Lyrics.app"</code></li>
         </ol>
       </div>
       <div class="panel-os" data-os="linux">
         <ol class="steps">
-          <li><strong>AppImage:</strong> make it executable (<code>chmod +x Spotify-Lyrics-x86_64.AppImage</code>) and double-click it, or run it from a terminal.</li>
-          <li><strong>.deb:</strong> install with <code>sudo dpkg -i Spotify-Lyrics-amd64.deb</code> (or open it with your software installer).</li>
-          <li>For encrypted token storage, a keyring (gnome-keyring or KWallet) should be installed.</li>
+          <li data-i18n="lx1"><strong>AppImage:</strong> make it executable (<code>chmod +x Spotify-Lyrics-x86_64.AppImage</code>) and double-click it, or run it from a terminal.</li>
+          <li data-i18n="lx2"><strong>.deb:</strong> install with <code>sudo dpkg -i Spotify-Lyrics-amd64.deb</code> (or open it with your software installer).</li>
+          <li data-i18n="lx3">For encrypted token storage, a keyring (gnome-keyring or KWallet) should be installed.</li>
         </ol>
       </div>
     </section>
 
     <section>
-      <h2>Is it safe? Yes, nothing to worry about.</h2>
-      <p class="safe">Windows shows that "unknown publisher" warning only because I haven't bought an EV code-signing certificate, which costs $300 to $600 a year for what is a free hobby app. It is not a sign that anything is wrong with the download.</p>
+      <h2 data-i18n="safe_h">Is it safe? Yes, nothing to worry about.</h2>
+      <p class="safe" data-i18n="safe_callout">Windows shows that "unknown publisher" warning only because I haven't bought an EV code-signing certificate, which costs $300 to $600 a year for what is a free hobby app. It is not a sign that anything is wrong with the download.</p>
       <ul class="why">
-        <li><strong>It's fully open source.</strong> Every line of code is public on <a href="https://github.com/Carlos-H101/spotify-lyrics">GitHub</a>, so you (or anyone) can read exactly what it does, and you're welcome to scan the file with any antivirus before running it.</li>
-        <li><strong>It runs entirely on your own computer.</strong> There is no account with me and no server of mine in the middle.</li>
-        <li><strong>No data is collected, by me or anyone.</strong> No analytics, no tracking, no ads, no telemetry. Nothing about you ever reaches me.</li>
-        <li><strong>The only things it connects to</strong> are Spotify, to read what you're playing through your own login, and a free lyrics database, to look up the words for the current song. That is the entire story.</li>
-        <li><strong>Your Spotify login is stored encrypted</strong> on your machine using your operating system's built-in secure storage.</li>
+        <li data-i18n="safe1"><strong>It's fully open source.</strong> Every line of code is public on <a href="https://github.com/Carlos-H101/spotify-lyrics">GitHub</a>, so you (or anyone) can read exactly what it does, and you're welcome to scan the file with any antivirus before running it.</li>
+        <li data-i18n="safe2"><strong>It runs entirely on your own computer.</strong> There is no account with me and no server of mine in the middle.</li>
+        <li data-i18n="safe3"><strong>No data is collected, by me or anyone.</strong> No analytics, no tracking, no ads, no telemetry. Nothing about you ever reaches me.</li>
+        <li data-i18n="safe4"><strong>The only things it connects to</strong> are Spotify, to read what you're playing through your own login, and a free lyrics database, to look up the words for the current song. That is the entire story.</li>
+        <li data-i18n="safe5"><strong>Your Spotify login is stored encrypted</strong> on your machine using your operating system's built-in secure storage.</li>
       </ul>
-      <p>In short: it links to your Spotify and shows the lyrics, and that is all it does. If you ever have a doubt, read the code or run the file through a scanner.</p>
+      <p data-i18n="safe_close">In short: it links to your Spotify and shows the lyrics, and that is all it does. If you ever have a doubt, read the code or run the file through a scanner.</p>
     </section>
 
     <footer>
-      <p>Open source (MIT) · <a href="https://github.com/Carlos-H101/spotify-lyrics">View on GitHub</a></p>
-      <p>Not affiliated with Spotify AB. "Spotify" is a trademark of Spotify AB.</p>
+      <p data-i18n="foot1">Open source (MIT) · <a href="https://github.com/Carlos-H101/spotify-lyrics">View on GitHub</a></p>
+      <p data-i18n="foot2">Not affiliated with Spotify AB. "Spotify" is a trademark of Spotify AB.</p>
     </footer>
   </div>
 
   <script>
     var BASE = 'https://github.com/Carlos-H101/spotify-lyrics/releases/latest/download/';
+    var DLFILE = { win:'Spotify-Lyrics-Setup.exe', mac:'Spotify-Lyrics-arm64.dmg', linux:'Spotify-Lyrics-x86_64.AppImage' };
+
+    var I18N = {
+      en: {
+        tagline: `A free synced-lyrics overlay for Spotify. It shows your current song and scrolls the lyrics in time, in a small always-on-top mini-player that stays out of your way.`,
+        disclaim: `Not affiliated with Spotify. Lyrics by LRCLIB. Requires a Spotify Premium account.`,
+        sub: `Free and open source. <a href="https://github.com/Carlos-H101/spotify-lyrics/releases/latest">All versions and files</a>`,
+        dl_win: `Download for Windows`,
+        dl_mac: `Download for macOS <small>(Apple Silicon)</small>`,
+        dl_linux: `Download for Linux <small>(AppImage)</small>`,
+        dl_h: `All downloads`,
+        c_win_p: `Windows 10 or 11. Installer (.exe).`,
+        c_win_a: `Download installer`,
+        c_macas_p: `M1/M2/M3 Macs. Disk image (.dmg).`,
+        c_macas_a: `Download .dmg`,
+        c_macin_p: `Older Intel Macs. Disk image (.dmg).`,
+        c_macin_a: `Download .dmg`,
+        c_lxappimg_p: `Most distros. Portable AppImage.`,
+        c_lxappimg_a: `Download AppImage`,
+        c_lxdeb_p: `.deb package.`,
+        c_lxdeb_a: `Download .deb`,
+        setup_h: `Connect your Spotify (one time, ~5 min)`,
+        setup_intro: `Spotify caps hobby apps at a few users per key, so each person uses their own free key. It takes a few minutes once.`,
+        s1: `Open the <a href="https://developer.spotify.com/dashboard" target="_blank" rel="noopener">Spotify Developer Dashboard</a> and create an app (any name).`,
+        s2: `Add this exact Redirect URI: <code>http://127.0.0.1:8888/callback</code>`,
+        s3: `Copy the app's <strong>Client ID</strong> (you do not need the secret).`,
+        s4: `Launch Spotify Lyrics, open <strong>Settings → Spotify account</strong>, paste the Client ID, and click <strong>Connect</strong>.`,
+        setup_note: `Reading playback requires a Spotify <strong>Premium</strong> account (Spotify's rule since Feb 2026). Free accounts can't authorize the API.`,
+        open_h: `Opening it the first time`,
+        open_intro: `The app is not code-signed (signing certificates are expensive), so your OS will warn you the first time. This is normal for indie apps. Here's how to get past it.`,
+        win1: `Run the installer. If you see <strong>"Windows protected your PC"</strong>, click <strong>More info</strong>.`,
+        win2: `Click <strong>Run anyway</strong>, then finish the installer.`,
+        win3: `Launch <strong>Spotify Lyrics</strong> from the Start Menu or Desktop shortcut.`,
+        mac1: `Open the <code>.dmg</code> and drag <strong>Spotify Lyrics</strong> into Applications.`,
+        mac2: `In Applications, <strong>right-click</strong> the app and choose <strong>Open</strong>, then <strong>Open</strong> again.`,
+        mac3: `If macOS still blocks it: <strong>System Settings → Privacy &amp; Security</strong>, scroll down, and click <strong>Open Anyway</strong>.`,
+        mac4: `Last resort in Terminal: <code>xattr -dr com.apple.quarantine "/Applications/Spotify Lyrics.app"</code>`,
+        lx1: `<strong>AppImage:</strong> make it executable (<code>chmod +x Spotify-Lyrics-x86_64.AppImage</code>) and double-click it, or run it from a terminal.`,
+        lx2: `<strong>.deb:</strong> install with <code>sudo dpkg -i Spotify-Lyrics-amd64.deb</code> (or open it with your software installer).`,
+        lx3: `For encrypted token storage, a keyring (gnome-keyring or KWallet) should be installed.`,
+        safe_h: `Is it safe? Yes, nothing to worry about.`,
+        safe_callout: `Windows shows that "unknown publisher" warning only because I haven't bought an EV code-signing certificate, which costs $300 to $600 a year for what is a free hobby app. It is not a sign that anything is wrong with the download.`,
+        safe1: `<strong>It's fully open source.</strong> Every line of code is public on <a href="https://github.com/Carlos-H101/spotify-lyrics">GitHub</a>, so you (or anyone) can read exactly what it does, and you're welcome to scan the file with any antivirus before running it.`,
+        safe2: `<strong>It runs entirely on your own computer.</strong> There is no account with me and no server of mine in the middle.`,
+        safe3: `<strong>No data is collected, by me or anyone.</strong> No analytics, no tracking, no ads, no telemetry. Nothing about you ever reaches me.`,
+        safe4: `<strong>The only things it connects to</strong> are Spotify, to read what you're playing through your own login, and a free lyrics database, to look up the words for the current song. That is the entire story.`,
+        safe5: `<strong>Your Spotify login is stored encrypted</strong> on your machine using your operating system's built-in secure storage.`,
+        safe_close: `In short: it links to your Spotify and shows the lyrics, and that is all it does. If you ever have a doubt, read the code or run the file through a scanner.`,
+        foot1: `Open source (MIT) · <a href="https://github.com/Carlos-H101/spotify-lyrics">View on GitHub</a>`,
+        foot2: `Not affiliated with Spotify AB. "Spotify" is a trademark of Spotify AB.`
+      },
+      es: {
+        tagline: `Una superposición gratuita de letras sincronizadas para Spotify. Muestra tu canción actual y desplaza la letra al ritmo, en un mini-reproductor siempre visible que no te estorba.`,
+        disclaim: `Sin afiliación con Spotify. Letras por LRCLIB. Requiere una cuenta de Spotify Premium.`,
+        sub: `Gratis y de código abierto. <a href="https://github.com/Carlos-H101/spotify-lyrics/releases/latest">Todas las versiones y archivos</a>`,
+        dl_win: `Descargar para Windows`,
+        dl_mac: `Descargar para macOS <small>(Apple Silicon)</small>`,
+        dl_linux: `Descargar para Linux <small>(AppImage)</small>`,
+        dl_h: `Todas las descargas`,
+        c_win_p: `Windows 10 u 11. Instalador (.exe).`,
+        c_win_a: `Descargar instalador`,
+        c_macas_p: `Macs M1/M2/M3. Imagen de disco (.dmg).`,
+        c_macas_a: `Descargar .dmg`,
+        c_macin_p: `Macs Intel más antiguas. Imagen de disco (.dmg).`,
+        c_macin_a: `Descargar .dmg`,
+        c_lxappimg_p: `La mayoría de distros. AppImage portable.`,
+        c_lxappimg_a: `Descargar AppImage`,
+        c_lxdeb_p: `Paquete .deb.`,
+        c_lxdeb_a: `Descargar .deb`,
+        setup_h: `Conecta tu Spotify (una vez, ~5 min)`,
+        setup_intro: `Spotify limita las apps de aficionados a unos pocos usuarios por clave, así que cada persona usa su propia clave gratuita. Solo toma unos minutos, una sola vez.`,
+        s1: `Abre el <a href="https://developer.spotify.com/dashboard" target="_blank" rel="noopener">Spotify Developer Dashboard</a> y crea una app (cualquier nombre).`,
+        s2: `Agrega esta Redirect URI exacta: <code>http://127.0.0.1:8888/callback</code>`,
+        s3: `Copia el <strong>Client ID</strong> de la app (no necesitas el secret).`,
+        s4: `Abre Spotify Lyrics, ve a <strong>Settings → Spotify account</strong>, pega el Client ID y haz clic en <strong>Connect</strong>.`,
+        setup_note: `Leer la reproducción requiere una cuenta de Spotify <strong>Premium</strong> (regla de Spotify desde feb. 2026). Las cuentas gratuitas no pueden autorizar la API.`,
+        open_h: `Abrirlo por primera vez`,
+        open_intro: `La app no está firmada (los certificados de firma son caros), así que tu sistema te avisará la primera vez. Es normal en apps independientes. Así puedes continuar.`,
+        win1: `Ejecuta el instalador. Si ves <strong>"Windows protegió tu PC"</strong>, haz clic en <strong>Más información</strong>.`,
+        win2: `Haz clic en <strong>Ejecutar de todas formas</strong> y termina la instalación.`,
+        win3: `Abre <strong>Spotify Lyrics</strong> desde el menú Inicio o el acceso directo del escritorio.`,
+        mac1: `Abre el <code>.dmg</code> y arrastra <strong>Spotify Lyrics</strong> a Aplicaciones.`,
+        mac2: `En Aplicaciones, <strong>haz clic derecho</strong> en la app y elige <strong>Abrir</strong>, luego <strong>Abrir</strong> otra vez.`,
+        mac3: `Si macOS aún lo bloquea: <strong>Ajustes del Sistema → Privacidad y seguridad</strong>, baja y haz clic en <strong>Abrir de todas formas</strong>.`,
+        mac4: `Último recurso en la Terminal: <code>xattr -dr com.apple.quarantine "/Applications/Spotify Lyrics.app"</code>`,
+        lx1: `<strong>AppImage:</strong> hazlo ejecutable (<code>chmod +x Spotify-Lyrics-x86_64.AppImage</code>) y haz doble clic, o ejecútalo desde una terminal.`,
+        lx2: `<strong>.deb:</strong> instala con <code>sudo dpkg -i Spotify-Lyrics-amd64.deb</code> (o ábrelo con tu instalador de software).`,
+        lx3: `Para guardar el token cifrado, debe haber un llavero instalado (gnome-keyring o KWallet).`,
+        safe_h: `¿Es seguro? Sí, nada de qué preocuparse.`,
+        safe_callout: `Windows muestra esa advertencia de "editor desconocido" solo porque no he comprado un certificado de firma EV, que cuesta entre $300 y $600 al año para lo que es una app gratuita y de pasatiempo. No significa que haya algo malo con la descarga.`,
+        safe1: `<strong>Es totalmente de código abierto.</strong> Cada línea de código es pública en <a href="https://github.com/Carlos-H101/spotify-lyrics">GitHub</a>, así que tú (o cualquiera) puede ver exactamente qué hace, y puedes analizar el archivo con cualquier antivirus antes de ejecutarlo.`,
+        safe2: `<strong>Se ejecuta por completo en tu propia computadora.</strong> No hay ninguna cuenta conmigo ni ningún servidor mío de por medio.`,
+        safe3: `<strong>No se recopila ningún dato, ni por mí ni por nadie.</strong> Sin analíticas, sin rastreo, sin anuncios, sin telemetría. Nada sobre ti llega nunca a mí.`,
+        safe4: `<strong>Lo único a lo que se conecta</strong> es a Spotify, para leer lo que reproduces con tu propia sesión, y a una base de datos gratuita de letras, para buscar la letra de la canción actual. Eso es todo.`,
+        safe5: `<strong>Tu sesión de Spotify se guarda cifrada</strong> en tu equipo usando el almacenamiento seguro integrado de tu sistema operativo.`,
+        safe_close: `En resumen: se conecta a tu Spotify y muestra la letra, y eso es todo lo que hace. Si alguna vez tienes una duda, lee el código o pasa el archivo por un antivirus.`,
+        foot1: `Código abierto (MIT) · <a href="https://github.com/Carlos-H101/spotify-lyrics">Ver en GitHub</a>`,
+        foot2: `Sin afiliación con Spotify AB. "Spotify" es una marca registrada de Spotify AB.`
+      }
+    };
+
     var ua = navigator.userAgent;
     var os = 'win';
     if (/Mac/i.test(ua)) os = 'mac';
     else if (/Linux/i.test(ua) && !/Android/i.test(ua)) os = 'linux';
-
     var primary = document.getElementById('primary');
-    var label = document.getElementById('primary-label');
-    if (os === 'win') { primary.href = BASE + 'Spotify-Lyrics-Setup.exe'; label.innerHTML = 'Download for Windows'; }
-    else if (os === 'mac') { primary.href = BASE + 'Spotify-Lyrics-arm64.dmg'; label.innerHTML = 'Download for macOS <small>(Apple Silicon)</small>'; }
-    else if (os === 'linux') { primary.href = BASE + 'Spotify-Lyrics-x86_64.AppImage'; label.innerHTML = 'Download for Linux <small>(AppImage)</small>'; }
+
+    function applyLang(lang) {
+      var d = I18N[lang] || I18N.en;
+      document.documentElement.lang = lang;
+      document.querySelectorAll('[data-i18n]').forEach(function (el) {
+        var k = el.getAttribute('data-i18n');
+        if (d[k] != null) el.innerHTML = d[k];
+      });
+      primary.href = BASE + DLFILE[os];
+      primary.innerHTML = d['dl_' + os];
+      document.querySelectorAll('.lang-btn').forEach(function (b) {
+        b.classList.toggle('active', b.dataset.lang === lang);
+      });
+    }
+
+    function getLang() { try { return localStorage.getItem('lang'); } catch (e) { return null; } }
+    function setLang(lang) { try { localStorage.setItem('lang', lang); } catch (e) {} applyLang(lang); }
+
+    document.querySelectorAll('.lang-btn').forEach(function (b) {
+      b.addEventListener('click', function () { setLang(b.dataset.lang); });
+    });
 
     // OS tabs for the "how to open" section
     var tabs = document.querySelectorAll('.tab');
@@ -184,6 +311,9 @@
       panels.forEach(function (p) { p.classList.toggle('active', p.dataset.os === name); });
     }
     tabs.forEach(function (t) { t.addEventListener('click', function () { showOS(t.dataset.os); }); });
+
+    // Default to English; remember a manual choice.
+    applyLang(getLang() === 'es' ? 'es' : 'en');
     showOS(os);
   </script>
 </body>
