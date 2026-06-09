@@ -12,7 +12,7 @@
     ['activeScale', 'range'], ['cornerRadius', 'range'], ['shadeOpacity', 'range'],
     ['fontFamily', 'select'], ['fontWeight', 'select'], ['textAlign', 'select'], ['backdrop', 'select'],
     ['glow', 'check'], ['textShadow', 'check'], ['showAlbumArt', 'check'], ['showHeader', 'check'],
-    ['showControls', 'check'], ['compact', 'check'], ['alwaysOnTop', 'check'], ['showInTaskbar', 'check'],
+    ['showControls', 'check'], ['compact', 'check'], ['alwaysOnTop', 'check'],
     ['startLocked', 'check'], ['autoHidePaused', 'check'], ['autoHideNoLyrics', 'check'],
     ['startWithWindows', 'check'], ['lyricOffsetMs', 'range']
   ];
@@ -22,7 +22,7 @@
     appearance: ['theme', 'backdrop', 'activeColor', 'textColor', 'accentColor', 'bgColor', 'bgOpacity',
       'shadeOpacity', 'artBlur', 'fontFamily', 'fontSize', 'fontWeight', 'lineSpacing', 'textAlign',
       'activeScale', 'cornerRadius', 'glow', 'textShadow'],
-    layout: ['showAlbumArt', 'showHeader', 'showControls', 'compact', 'alwaysOnTop', 'showInTaskbar'],
+    layout: ['showAlbumArt', 'showHeader', 'showControls', 'compact', 'alwaysOnTop'],
     behavior: ['startLocked', 'autoHidePaused', 'autoHideNoLyrics', 'startWithWindows', 'lyricOffsetMs'],
     hotkeys: ['hotkeys']
   };

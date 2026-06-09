@@ -30,6 +30,7 @@ contextBridge.exposeInMainWorld('lyricsAPI', {
   onPlayback: (cb) => sub('overlay:playback', cb),
   onStatus: (cb) => sub('overlay:status', cb),
   onLockChanged: (cb) => sub('overlay:lock', cb),
+  onHover: (cb) => sub('overlay:hover', cb),
   onOpenSettings: (cb) => sub('overlay:openSettings', cb),
 
   // actions

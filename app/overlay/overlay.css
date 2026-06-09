@@ -37,7 +37,7 @@ html, body {
   transition: opacity .35s ease;
 }
 #root.hidden-content { opacity: 0; }
-#root.hidden-content:hover { opacity: 1; }
+#root.hidden-content.hovered { opacity: 1; }
 
 /* Album-art backdrop, blurred and dimmed (the Spotify "ambient" look). */
 #bg {
@@ -98,7 +98,7 @@ header {
   opacity: 0;
   transition: opacity .2s ease;
 }
-#root:hover .controls { opacity: 1; }
+#root.hovered .controls { opacity: 1; }
 .controls button {
   -webkit-app-region: no-drag;
   width: 28px; height: 28px;
@@ -199,7 +199,7 @@ header {
 }
 /* Hidden while you work; fades in only when you hover the locked overlay,
    plus a brief confirmation right after you lock. */
-#root.locked:hover #lock-indicator,
+#root.locked.hovered #lock-indicator,
 #lock-indicator.flash {
   opacity: 1;
   transform: translateX(-50%) translateY(0);
@@ -224,7 +224,7 @@ header {
   transition: opacity .2s ease;
 }
 #transport.hidden { display: none; }
-#root:hover #transport { opacity: 1; pointer-events: auto; }
+#root.hovered #transport { opacity: 1; pointer-events: auto; }
 .tcontrols { display: flex; align-items: center; justify-content: center; gap: 16px; }
 .tcontrols button {
   -webkit-app-region: no-drag;

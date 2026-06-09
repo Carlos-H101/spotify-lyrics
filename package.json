@@ -1,7 +1,7 @@
 {
   "name": "spotify-lyrics",
   "productName": "Spotify Lyrics",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A synced-lyrics overlay for Spotify. Shows the current song and scrolls its lyrics in time, in a small always-on-top mini-player.",
   "author": "Carlos Hernandez (Carlos-H101)",
   "license": "MIT",
@@ -46,6 +46,6 @@
       "maintainer": "Carlos Hernandez <carlos-h101@users.noreply.github.com>",
       "artifactName": "Spotify-Lyrics-${arch}.${ext}"
     },
-    "publish": [{ "provider": "github", "owner": "Carlos-H101", "repo": "spotify-lyrics" }]
+    "publish": [{ "provider": "github", "owner": "Carlos-H101", "repo": "spotify-lyrics", "releaseType": "release" }]
   }
 }

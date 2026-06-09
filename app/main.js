@@ -1,7 +1,7 @@
 // Spotify Synced-Lyrics Overlay — main process.
 // Owns windows, tray, hotkeys, the Spotify poll loop, lyric fetching, and IPC.
 // Zero third-party packages: Electron + Node built-ins only.
-const { app, BrowserWindow, ipcMain, Tray, Menu, globalShortcut, nativeImage, shell } = require('electron');
+const { app, BrowserWindow, ipcMain, globalShortcut, nativeImage, shell, screen } = require('electron');
 const path = require('path');
 const fs = require('fs');
 
@@ -23,6 +23,8 @@ let settings = store.getSettings();
 let pollTimer = null;
 let saveBoundsTimer = null;
 let topmostTimer = null;
+let hoverTimer = null;
+let lastHover = null;
 let topmostPaused = false;   // suspend the re-assert while a native picker/dialog is open
 
 // Cached "current" state so windows opening late can fetch it.
@@ -69,7 +71,7 @@ function createOverlay() {
     transparent: true,
     backgroundColor: '#00000000',
     hasShadow: false,
-    skipTaskbar: !settings.showInTaskbar,
+    skipTaskbar: false,           // taskbar-only build: always keep the taskbar button (no tray)
     resizable: true,
     maximizable: false,
     fullscreenable: false,
@@ -189,28 +191,23 @@ function toggleOverlayVisible() {
 }
 
 // --------------------------------------------------------------- tray --------
+// Taskbar-only build: no system-tray icon. Every action (settings, lock, quit)
+// lives on the overlay itself, so this is intentionally a no-op.
+function buildTray() {}
 
-function buildTray() {
-  if (!tray) {
-    tray = new Tray(appIconImage(32));
-    tray.setToolTip('Spotify Lyrics Overlay');
-    tray.on('click', () => {
-      if (!overlayWin) return createOverlay();
-      if (overlayWin.isMinimized()) overlayWin.restore();
-      overlayWin.show();
-      overlayWin.focus();
-    });
+// Reveal the controls only when the cursor is actually over the window. CSS
+// :hover can get stuck "on" for transparent always-on-top windows (the
+// mouse-leave event doesn't fire when you move to another app), so we drive a
+// `.hovered` class from the real cursor position instead.
+function pollHover() {
+  if (!overlayWin || overlayWin.isDestroyed() || !overlayWin.isVisible()) return;
+  const p = screen.getCursorScreenPoint();
+  const b = overlayWin.getBounds();
+  const inside = p.x >= b.x && p.x < b.x + b.width && p.y >= b.y && p.y < b.y + b.height;
+  if (inside !== lastHover) {
+    lastHover = inside;
+    sendAll('overlay:hover', { hovered: inside });
   }
-  const menu = Menu.buildFromTemplate([
-    { label: overlayWin && overlayWin.isVisible() ? 'Hide overlay' : 'Show overlay', click: toggleOverlayVisible },
-    { label: state.locked ? 'Unlock (make clickable)' : 'Lock (click-through)', click: () => applyLocked(!state.locked) },
-    { type: 'separator' },
-    { label: 'Settings…', click: openSettingsPanel },
-    { label: spotify && spotify.isAuthed() ? 'Reconnect Spotify' : 'Connect Spotify', click: () => startAuth().catch(() => {}) },
-    { type: 'separator' },
-    { label: 'Quit', click: () => { app.quit(); } }
-  ]);
-  tray.setContextMenu(menu);
 }
 
 // ------------------------------------------------------------ poll loop ------
@@ -317,7 +314,6 @@ function registerIpc() {
     settings = store.setSettings(patch || {});
     if (patch && 'spotifyClientId' in patch) spotify.setClientId(settings.spotifyClientId);
     if (patch && 'alwaysOnTop' in patch) applyOverlaySettings();
-    if (patch && 'showInTaskbar' in patch && overlayWin) overlayWin.setSkipTaskbar(!settings.showInTaskbar);
     if (patch && 'startWithWindows' in patch) applyLoginItem();
     if (patch && 'hotkeys' in patch) registerHotkeys();
     if (patch && 'accentColor' in patch && tray) tray.setImage(appIconImage(32));
@@ -340,7 +336,6 @@ function registerIpc() {
       for (const k of keys) if (k in store.DEFAULTS) patch[k] = structuredClone(store.DEFAULTS[k]);
       settings = store.setSettings(patch);
       if ('alwaysOnTop' in patch) applyOverlaySettings();
-      if ('showInTaskbar' in patch && overlayWin) overlayWin.setSkipTaskbar(!settings.showInTaskbar);
       if ('startWithWindows' in patch) applyLoginItem();
       if ('hotkeys' in patch) registerHotkeys();
       if ('accentColor' in patch && tray) tray.setImage(appIconImage(32));
@@ -441,6 +436,8 @@ if (!singleLock) {
   });
 
   app.whenReady().then(() => {
+    app.setAppUserModelId('com.carlosh101.spotifylyrics'); // one clean taskbar identity
+
     spotify = new SpotifyController({
       clientId: settings.spotifyClientId,
       refreshToken: store.loadRefreshToken()
@@ -449,10 +446,10 @@ if (!singleLock) {
 
     registerIpc();
     createOverlay();
-    buildTray();
     registerHotkeys();
     applyLoginItem();
     topmostTimer = setInterval(reassertTopmost, 1500);
+    hoverTimer = setInterval(pollHover, 150);
 
     state.status = spotify.isAuthed() ? 'idle' : 'unauthed';
     pollOnce();
@@ -460,9 +457,8 @@ if (!singleLock) {
     app.on('activate', () => { if (!overlayWin) createOverlay(); });
   });
 
-  // Subscribing here (and not quitting) keeps the app alive in the tray after
-  // windows close. The overlay is hidden rather than closed, so this is a safety net.
-  app.on('window-all-closed', () => {});
+  // Taskbar-only: there is no tray to live in, so closing the window quits the app.
+  app.on('window-all-closed', () => app.quit());
 
-  app.on('will-quit', () => { clearInterval(topmostTimer); globalShortcut.unregisterAll(); });
+  app.on('will-quit', () => { clearInterval(topmostTimer); clearInterval(hoverTimer); globalShortcut.unregisterAll(); });
 }

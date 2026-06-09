@@ -381,6 +381,7 @@ async function init() {
     updateTransport();
   });
   api.onLockChanged(({ locked: l }) => setLock(l));
+  api.onHover(({ hovered }) => $('root').classList.toggle('hovered', hovered));
   api.onAuthChanged((info) => {
     if (info && typeof info.canControl === 'boolean') { canControl = info.canControl; updateTransport(); }
   });
